@@ -26,56 +26,56 @@ get_person <- function(buffer = 0.05, in_x = 1, in_y = 1, share = 1) {
   ret_val
 }
 
-get_baseline_coords <- function(share) {
-  bottom <- function(x, h = 0, k = 0, r = 1) k - sqrt(r*r - (x - h)*(x - h))
-  top <- function(x, h = 0, k = 0, r = 1) k + sqrt(r*r - (x - h)*(x - h))
-
-  x <- seq(16,34)
-
-  k = 90
-  h = 25
-  r = 9
-
-  bottom_head_x <- seq(14, 36)
-  bottom_head_y <- bottom(bottom_head_x, 25, 114, 11)
-  top_head_x <- rev(bottom_head_x)
-  top_head_y <- top(top_head_x, 25, 114, 11)
-
-  head_x <- c(bottom_head_x, top_head_x)/50
-  head_y = c(bottom_head_y, top_head_y)/125
-
-  hand_x <- seq(0,9)
-  hand_y <- bottom(hand_x, max(hand_x)/2, 0, max(hand_x)/2)
-  foot_x <- seq(0,12)
-  foot_y <- bottom(foot_x, max(foot_x)/2, 0, max(foot_x)/2)
-
-  lower_body_x <- c( 0,  0 + hand_x,  9, 10, 11, 11 + foot_x, 23, 24, 25, 26, 27, 27 + foot_x, 39, 40, 41, 41 + hand_x, 50)
-  lower_body_y <- c(89, 54 + hand_y, 84, 84, 84,  6 + foot_y, 54, 54, 54, 54, 54,  6 + foot_y, 84, 84, 84, 54 + hand_y, 89)
-
-  shoulder_right_x <- seq(from = 50, to = 38, by = -1)
-  shoulder_right_y <- top(shoulder_right_x, h = 38, k = 89, r = 12)
-  shoulder_left_x <- seq(from = 12, to = 0, by = -1)
-  shoulder_left_y <- top(shoulder_left_x, h = 12, k = 89, r = 12)
-
-  upper_body_x <- c(shoulder_right_x, seq(37, 13, -1), shoulder_left_x)
-  upper_body_y <- c(shoulder_right_y,     rep(101, 25), shoulder_left_y)
-
-  body_x = c(lower_body_x, upper_body_x)/50
-  body_y = c(lower_body_y, upper_body_y)/125
-
-  # Pare out portion that are below share
-  body_y <- body_y[body_x <= share]
-  body_x <- body_x[body_x <= share]
-  if (min(head_x, na.rm = TRUE) > share) {
-    head_x <- NA
-    head_y <- NA
-  } else {
-    head_y <- head_y[head_x <= share]
-    head_x <- head_x[head_x <= share]
-  }
-
-  list(head_x, head_y, body_x, body_y)
-}
+# get_baseline_coords <- function(share) {
+#   bottom <- function(x, h = 0, k = 0, r = 1) k - sqrt(r*r - (x - h)*(x - h))
+#   top <- function(x, h = 0, k = 0, r = 1) k + sqrt(r*r - (x - h)*(x - h))
+#
+#   x <- seq(16,34)
+#
+#   k = 90
+#   h = 25
+#   r = 9
+#
+#   bottom_head_x <- seq(14, 36)
+#   bottom_head_y <- bottom(bottom_head_x, 25, 114, 11)
+#   top_head_x <- rev(bottom_head_x)
+#   top_head_y <- top(top_head_x, 25, 114, 11)
+#
+#   head_x <- c(bottom_head_x, top_head_x)/50
+#   head_y = c(bottom_head_y, top_head_y)/125
+#
+#   hand_x <- seq(0,9)
+#   hand_y <- bottom(hand_x, max(hand_x)/2, 0, max(hand_x)/2)
+#   foot_x <- seq(0,12)
+#   foot_y <- bottom(foot_x, max(foot_x)/2, 0, max(foot_x)/2)
+#
+#   lower_body_x <- c( 0,  0 + hand_x,  9, 10, 11, 11 + foot_x, 23, 24, 25, 26, 27, 27 + foot_x, 39, 40, 41, 41 + hand_x, 50)
+#   lower_body_y <- c(89, 54 + hand_y, 84, 84, 84,  6 + foot_y, 54, 54, 54, 54, 54,  6 + foot_y, 84, 84, 84, 54 + hand_y, 89)
+#
+#   shoulder_right_x <- seq(from = 50, to = 38, by = -1)
+#   shoulder_right_y <- top(shoulder_right_x, h = 38, k = 89, r = 12)
+#   shoulder_left_x <- seq(from = 12, to = 0, by = -1)
+#   shoulder_left_y <- top(shoulder_left_x, h = 12, k = 89, r = 12)
+#
+#   upper_body_x <- c(shoulder_right_x, seq(37, 13, -1), shoulder_left_x)
+#   upper_body_y <- c(shoulder_right_y,     rep(101, 25), shoulder_left_y)
+#
+#   body_x = c(lower_body_x, upper_body_x)/50
+#   body_y = c(lower_body_y, upper_body_y)/125
+#
+#   # Pare out portion that are below share
+#   body_y <- body_y[body_x <= share]
+#   body_x <- body_x[body_x <= share]
+#   if (min(head_x, na.rm = TRUE) > share) {
+#     head_x <- NA
+#     head_y <- NA
+#   } else {
+#     head_y <- head_y[head_x <= share]
+#     head_x <- head_x[head_x <= share]
+#   }
+#
+#   list(head_x, head_y, body_x, body_y)
+# }
 
 #' Two-Person Plots
 #'
