@@ -1,31 +1,31 @@
 library(ggplot2)
 
-get_person <- function(buffer = 0.05, in_x = 1, in_y = 1, share = 1) {
-  implied_x <- sqrt(1 - buffer)
-  implied_y <- implied_x
-
-  # The origin of the person graph needs to be shifted to account for the size of the border
-  offset_x <- (1 - implied_x)/2 + (in_x - 1)
-  offset_y <- (1 - implied_y)/2 + (in_y - 1)
-
-  my_coords <- get_baseline_coords(share)
-  head_x <- offset_x + (my_coords[[1]] * implied_x)
-  head_y <- offset_y + (my_coords[[2]] * implied_y)
-  body_x <- offset_x + (my_coords[[3]] * implied_x)
-  body_y <- offset_y + (my_coords[[4]] * implied_y)
-
-  #print(my_coords)
-
-  ret_val <- data.frame(body_x,
-                        body_y,
-                        head_x = NA,
-                        head_y = NA)
-  n <- length(head_x)
-  ret_val$head_x[1:n] <- head_x
-  ret_val$head_y[1:n] <- head_y
-  ret_val
-}
-
+# get_person <- function(buffer = 0.05, in_x = 1, in_y = 1, share = 1) {
+#   implied_x <- sqrt(1 - buffer)
+#   implied_y <- implied_x
+#
+#   # The origin of the person graph needs to be shifted to account for the size of the border
+#   offset_x <- (1 - implied_x)/2 + (in_x - 1)
+#   offset_y <- (1 - implied_y)/2 + (in_y - 1)
+#
+#   my_coords <- get_baseline_coords(share)
+#   head_x <- offset_x + (my_coords[[1]] * implied_x)
+#   head_y <- offset_y + (my_coords[[2]] * implied_y)
+#   body_x <- offset_x + (my_coords[[3]] * implied_x)
+#   body_y <- offset_y + (my_coords[[4]] * implied_y)
+#
+#   #print(my_coords)
+#
+#   ret_val <- data.frame(body_x,
+#                         body_y,
+#                         head_x = NA,
+#                         head_y = NA)
+#   n <- length(head_x)
+#   ret_val$head_x[1:n] <- head_x
+#   ret_val$head_y[1:n] <- head_y
+#   ret_val
+# }
+#
 # get_baseline_coords <- function(share) {
 #   bottom <- function(x, h = 0, k = 0, r = 1) k - sqrt(r*r - (x - h)*(x - h))
 #   top <- function(x, h = 0, k = 0, r = 1) k + sqrt(r*r - (x - h)*(x - h))

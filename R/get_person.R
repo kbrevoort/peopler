@@ -1,5 +1,18 @@
 #' Get Person Coordinates
 #'
+#' @export
+get_person <- function(in_coords, buffer = 0.05, align = 0.5) {
+  implied <- sqrt(1 - buffer)
+
+  offset_x <- (1 - implied) * align
+  offset_y <- (1 - implied)/2
+
+  in_coords$x <- offset_x + (in_coords$x * implied)
+  in_coords$y <- offset_y + (in_coords$y * implied)
+
+  in_coords
+}
+
 #' This function will return a dataframe with the coordinates of a single person on
 #' a unit square.
 get_baseline_coords <- function() {
