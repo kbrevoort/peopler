@@ -1,16 +1,23 @@
 #' Get Person Coordinates
 #'
 #' @export
-get_person <- function(in_coords, buffer = 0.05, align = 0.5) {
+get_person <- function(buffer = 0.05, align = 0.5, base = c(0, 0)) {
+  in_coords <- get_baseline_coords()
+
   implied <- sqrt(1 - buffer)
 
-  offset_x <- (1 - implied) * align
-  offset_y <- (1 - implied)/2
+  offset_x <- (1 - implied) * align + base[1]
+  offset_y <- (1 - implied)/2 + base[2]
 
   in_coords$x <- offset_x + (in_coords$x * implied)
   in_coords$y <- offset_y + (in_coords$y * implied)
 
   in_coords
+}
+
+get_joint_person <- function(buffer = 0.05, align = 0.8) {
+  rbind(get_person(NA, buffer, align = align),
+        get_person(NA, buffer, align = (1 - align), base = c(1, 0)))
 }
 
 #' This function will return a dataframe with the coordinates of a single person on
@@ -62,7 +69,9 @@ get_baseline_coords <- function() {
 #' @param threshold Point at which to trim the person
 #' @param right Boolean indicating whether to grab right side of threshold (default = FALSE)
 #' @export
-trim_person <- function(in_coords, threshold = 1.1, right = FALSE) {
+trim_person <- function(in_coords = NA, threshold = 1.1, right = FALSE) {
+  if (is.na(in_coords)) in_coords <- get_baseline_coords()
+
   if (right) in_coords$discard <- (in_coords$x < threshold)
   else in_coords$discard <- (in_coords$x > threshold)
 
