@@ -1,0 +1,27 @@
+---
+title: "The Problem of Joint Accounts in Credit Records"
+author: "Kenneth Brevoort"
+date: "October 22, 2015"
+output: html_document
+---
+
+```{r}
+pool <- c(rep('g', 20), rep('r', 5))
+draw <- sample(pool, replace = FALSE)
+
+left_data <- data.frame()
+for (i in 1:5) {
+  for (j in 1:5) {
+    left_data <- rbind(left_data, get_person(base = c(i-1, j-1)))
+  }
+}
+
+```
+
+You can also embed plots, for example:
+
+```{r, echo=FALSE}
+plot(cars)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
