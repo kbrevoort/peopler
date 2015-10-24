@@ -15,6 +15,19 @@ get_person <- function(buffer = 0.05, align = 0.5, base = c(0, 0)) {
   in_coords
 }
 
+person_theme <- function() {
+    theme(axis.line.y = element_blank(),
+          axis.text.y = element_blank(),
+          axis.ticks.y = element_blank(),
+          axis.ticks.x = element_blank(),
+          axis.text.x = element_blank(),
+          panel.grid.major = element_blank(),
+          panel.grid.major.x = element_blank(),
+          panel.grid.major.y = element_blank(),
+          plot.background = element_blank(),
+          panel.background = element_blank())
+}
+
 get_joint_person <- function(buffer = 0.05, align = 0.8) {
   rbind(get_person(NA, buffer, align = align),
         get_person(NA, buffer, align = (1 - align), base = c(1, 0)))

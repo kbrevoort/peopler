@@ -6,15 +6,28 @@ output: html_document
 ---
 
 ```{r}
+devtools::load_all("~/Documents/RCodeFiles/GitHubCode/peopler")
+library(ggplot2)
+
 pool <- c(rep('g', 20), rep('r', 5))
 draw <- sample(pool, replace = FALSE)
 
-left_data <- data.frame()
+draw_counter <- 0
+green_data <- data.frame()
+red_data <- data.frame()
 for (i in 1:5) {
   for (j in 1:5) {
-    left_data <- rbind(left_data, get_person(base = c(i-1, j-1)))
+    draw_counter <- draw_counter + 1
+    if (draw[draw_counter] == 'g') {
+      green_data <- rbind(green_data, data.frame(x = NA, y = NA), get_person(base = c(i-1, j-1)))
+    } else {
+      red_data <- rbind(red_data, data.frame(x = NA, y = NA), get_person(base = c(i-1, j-1)))
+    }
   }
 }
+
+ggplot() + geom_polygon(data = green_data, aes(x = x, y = y), fill = 'gray') +
+  geom_polygon(data = red_data, aes(x = x, y = y), fill = 'red')
 
 ```
 
