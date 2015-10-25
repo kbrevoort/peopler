@@ -27,7 +27,12 @@ for (i in 1:5) {
 }
 
 ggplot() + geom_polygon(data = green_data, aes(x = x, y = y), fill = 'gray') +
-  geom_polygon(data = red_data, aes(x = x, y = y), fill = 'red')
+  geom_polygon(data = red_data, aes(x = x, y = y), fill = 'red') + 
+  ggtitle("Single Accounts") +
+  xlim(0, 5) + ylim(0, 5) + 
+  xlab('') + ylab('') + 
+  person_theme()
+
 
 ```
 

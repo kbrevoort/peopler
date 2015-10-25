@@ -1,7 +1,7 @@
 #' Get Person Coordinates
 #'
 #' @export
-get_person <- function(buffer = 0.05, align = 0.5, base = c(0, 0)) {
+get_person <- function(buffer = 0.1, align = 0.5, base = c(0, 0)) {
   in_coords <- get_baseline_coords()
 
   implied <- sqrt(1 - buffer)
